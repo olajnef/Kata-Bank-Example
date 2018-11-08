@@ -12,7 +12,9 @@ public class Account {
 	}
 
 	public long deposit(long amount){
+		if(amount > 0)
 		balance +=amount;
+		
 		return balance;
 		
 	}

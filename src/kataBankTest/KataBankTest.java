@@ -17,11 +17,12 @@ public class KataBankTest {
 	}
 
 	@Test
-	public void depositTest() {
+	public void shouldDepositPositifAmount() {
 		long amount = 50;
 		account.setBalance(100);
         long balanceAfterDeposit = account.deposit(amount);
 		assertEquals(150, balanceAfterDeposit);
 	}
+	
 
 }
