@@ -65,5 +65,10 @@ public class KataBankTest {
 				accountForWithdraw.getBalance());
 		assertEquals( accountForWithdraw.getBalance()-accountForWithdraw.getAmount() , currentBalance);
 	}
+	@Test
+	public void should_withdraw_positif_amount(){
+		long currentBalance = accountForWithdraw.withdraw(accountForWithdraw.getAmount(), accountForWithdraw.getBalance());
+		assertEquals(accountForWithdraw.getBalance()-accountForWithdraw.getAmount(), currentBalance);
+	}
 
 }

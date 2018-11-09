@@ -110,12 +110,11 @@ public class Account {
 	}
 
 	public long deposit(long amount, long balance) {
-		this.amount = amount;
-		this.balance = balance;
+		
 		if (isDeposit(this.operationType)) {
-			if (isPositifDeposit(amount)) {
+			if (isPositifAmount(amount)) {
 				balance += amount;
-			} else if (isNegatifDeposit(amount)) {
+			} else if (isNegatifAmount(amount)) {
 
 				throw new IllegalStateException("You can't deposit a negative value.You should try again");
 
@@ -123,6 +122,7 @@ public class Account {
 		}
 
 		else {
+			
 			LOGGER.info("the operation is not a deposit");
 
 		}
@@ -131,10 +131,13 @@ public class Account {
 	
 	
 	public long withdraw(long amount , long balance){
-		this.amount=amount;
-		this.balance=balance;
-		if(isWithdraw(operationType))
+		
+		if(isWithdraw(this.operationType)){
+			
+		if(isPositifAmount(amount)){
 			balance-=amount;
+		}
+		}
 		else LOGGER.info("the operation is not a withdrawal");
 		return balance;
 	}
@@ -149,11 +152,11 @@ public class Account {
 		return Operation.withdraw.equals(operationType);
 	}
 
-	public Boolean isPositifDeposit(long amount) {
+	public Boolean isPositifAmount(long amount) {
 		return amount > 0;
 	}
 
-	public Boolean isNegatifDeposit(long amount) {
+	public Boolean isNegatifAmount(long amount) {
 		return amount < 0;
 	}
 
