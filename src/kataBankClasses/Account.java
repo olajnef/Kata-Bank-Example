@@ -128,13 +128,23 @@ public class Account {
 		}
 		return balance;
 	}
+	
+	
+	public long withdraw(long amount , long balance){
+		this.amount=amount;
+		this.balance=balance;
+		if(isWithdraw(operationType))
+			balance-=amount;
+		else LOGGER.info("the operation is not a withdrawal");
+		return balance;
+	}
 
 	public Boolean isDeposit(Account.Operation operationType) {
 		this.operationType = operationType;
 		return Operation.deposit.equals(operationType);
 	}
 
-	public Boolean isWithDraw(Account.Operation operationType) {
+	public Boolean isWithdraw(Account.Operation operationType) {
 		this.operationType = operationType;
 		return Operation.withdraw.equals(operationType);
 	}
