@@ -98,11 +98,24 @@ public class Account {
 	public long deposit(long amount,long balance ){
 		this.amount=amount ;
 		this.balance=balance;
-		if(this.operationType.equals(Operation.deposit)&& (amount >0))
-		balance+=amount;
+		if(isDeposit(this.operationType)){
+			if(amount>0)
+				balance+=amount;
+			
+		}
+		
+		else System.out.println("the operation is not a deposit");
 		return balance;
 	}
 	
+	public Boolean isDeposit(Account.Operation operationType){
+		this.operationType= operationType;
+		return  Operation.deposit.equals(operationType);
+	}
 	
+	public Boolean isWithDraw(Account.Operation operationType){
+		this.operationType= operationType;
+		return Operation.withdraw.equals(operationType);
+	}
 
 }
