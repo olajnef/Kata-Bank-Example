@@ -75,5 +75,14 @@ public class KataBankTest {
 	public void should_not_withdraw_negatif_amount(){
 		accountForWithdraw.withdraw(-50, accountForWithdraw.getBalance());
 	}
+	@Test
+	public void should_retrieve_positif_amount_less_than_balance(){
+		long currentBalance = accountForWithdraw.withdraw(accountForWithdraw.getAmount(), accountForWithdraw.getBalance());
+		assertEquals(accountForWithdraw.getBalance()-accountForWithdraw.getAmount(), currentBalance);
+		}
+	@Test (expected = IllegalStateException.class)
+	public void should_not_retrieve_positif_amount_higher_than_balance(){
+		accountForWithdraw.withdraw(150, 100);
+	}
 
 }

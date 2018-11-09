@@ -135,7 +135,10 @@ public class Account {
 		if(isWithdraw(this.operationType)){
 			
 		if(isPositifAmount(amount)){
+			if(amount<balance){
 			balance-=amount;
+			}
+			else throw new IllegalStateException("You have not enough money to retrieve this amount");
 		}
 		else if(isNegatifAmount(amount)){
 			throw new IllegalStateException("You can't retrieve a negative value.You should try again");
