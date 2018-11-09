@@ -137,6 +137,9 @@ public class Account {
 		if(isPositifAmount(amount)){
 			balance-=amount;
 		}
+		else if(isNegatifAmount(amount)){
+			throw new IllegalStateException("You can't retrieve a negative value.You should try again");
+		}
 		}
 		else LOGGER.info("the operation is not a withdrawal");
 		return balance;

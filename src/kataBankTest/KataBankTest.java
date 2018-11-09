@@ -70,5 +70,10 @@ public class KataBankTest {
 		long currentBalance = accountForWithdraw.withdraw(accountForWithdraw.getAmount(), accountForWithdraw.getBalance());
 		assertEquals(accountForWithdraw.getBalance()-accountForWithdraw.getAmount(), currentBalance);
 	}
+	
+	@Test (expected = IllegalStateException.class)
+	public void should_not_withdraw_negatif_amount(){
+		accountForWithdraw.withdraw(-50, accountForWithdraw.getBalance());
+	}
 
 }
