@@ -8,43 +8,44 @@ import org.junit.Before;
 import org.junit.Test;
 
 import kataBankClasses.Account;
-import kataBankClasses.Account.Operation;
+import kataBankClasses.Operation.OperationType;
 import kataBankClasses.Client;
+import kataBankClasses.Operation;
 
 public class KataBankTest {
-	private Account accountForDeposit;
-	private Account accountForWithdraw;
+	private Operation accountForDeposit;
+	private Operation accountForWithdraw;
 	private Client client;
 
 	@Before
 	public void setUp() throws Exception {
 		client = new Client();
 		client.setName("Toto");
-		accountForDeposit = new Account(client, 50, 100, LocalDate.now(), Operation.deposit);
-		accountForWithdraw = new Account(client, 50, 100, LocalDate.now(), Operation.withdraw);
+		accountForDeposit = new Account(client, 100, OperationType.deposit);
+		accountForWithdraw = new Account(client,  100, OperationType.withdraw);
 
 	}
 
 	@Test
 	public void account_operation_type_should_be_deposit_when_we_call_deposit_service() {
 
-		long currentBalance = accountForDeposit.deposit(accountForDeposit.getAmount(),
+		long currentBalance = accountForDeposit.deposit(50,
 				accountForDeposit.getBalance());
-		assertEquals(accountForDeposit.getAmount() + accountForDeposit.getBalance(), currentBalance);
+		assertEquals(50 + accountForDeposit.getBalance(), currentBalance);
 	}
 	
 	@Test
 	public void account_operation_type_should__not_be_withdraw_when_we_call_deposit_service() {
 
-		long currentBalance = accountForWithdraw.deposit(accountForWithdraw.getAmount(),
+		long currentBalance = accountForWithdraw.deposit(50,
 				accountForWithdraw.getBalance());
 		assertEquals("the operation is not a deposit", currentBalance, accountForWithdraw.getBalance());
 	}
 
 	@Test
 	public void should_deposit_positif_amount() {
-		long currentBalance = accountForDeposit.deposit(accountForDeposit.getAmount(), accountForDeposit.getBalance());
-		assertEquals(accountForDeposit.getAmount() + accountForDeposit.getBalance(), currentBalance);
+		long currentBalance = accountForDeposit.deposit(50, accountForDeposit.getBalance());
+		assertEquals(50 + accountForDeposit.getBalance(), currentBalance);
 	}
 
 	@Test(expected = IllegalStateException.class)
@@ -54,21 +55,21 @@ public class KataBankTest {
 	}
 	@Test
 	public void account_operation_type_should_not_be_deposit_when_we_call_withdraw_service(){
-		long currentBalance = accountForDeposit.withdraw(accountForDeposit.getAmount(),
+		long currentBalance = accountForDeposit.withdraw(50,
 				accountForDeposit.getBalance());
 		assertEquals("the operation is not a withdraw", currentBalance, accountForDeposit.getBalance());
 	}
 	@Test
 	public void account_operation_type_should_be_withdraw_when_we_call_deposit_service() {
 
-		long currentBalance = accountForWithdraw.withdraw(accountForWithdraw.getAmount(),
+		long currentBalance = accountForWithdraw.withdraw(50,
 				accountForWithdraw.getBalance());
-		assertEquals( accountForWithdraw.getBalance()-accountForWithdraw.getAmount() , currentBalance);
+		assertEquals( accountForWithdraw.getBalance()-50 , currentBalance);
 	}
 	@Test
 	public void should_withdraw_positif_amount(){
-		long currentBalance = accountForWithdraw.withdraw(accountForWithdraw.getAmount(), accountForWithdraw.getBalance());
-		assertEquals(accountForWithdraw.getBalance()-accountForWithdraw.getAmount(), currentBalance);
+		long currentBalance = accountForWithdraw.withdraw(50, accountForWithdraw.getBalance());
+		assertEquals(accountForWithdraw.getBalance()-50, currentBalance);
 	}
 	
 	@Test (expected = IllegalStateException.class)
@@ -77,7 +78,7 @@ public class KataBankTest {
 	}
 	@Test
 	public void should_retrieve_positif_amount_less_than_balance(){
-		long currentBalance = accountForWithdraw.withdraw(accountForWithdraw.getAmount(), accountForWithdraw.getBalance());
+		long currentBalance = accountForWithdraw.withdraw(50, accountForWithdraw.getBalance());
 		assertEquals(accountForWithdraw.getBalance()-accountForWithdraw.getAmount(), currentBalance);
 		}
 	@Test (expected = IllegalStateException.class)
