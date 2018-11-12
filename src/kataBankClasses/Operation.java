@@ -14,15 +14,14 @@ public class Operation {
 	}
 
 	public Operation.OperationType operationType;
-	public Account account;
-	
+	public long balanceAfterOperation;
 
 	public Operation(long amount, LocalDate date, OperationType operationType) {
 		super();
 		this.amount = amount;
 		this.date = date;
 		this.operationType = operationType;
-		
+
 	}
 
 	/**
@@ -55,39 +54,61 @@ public class Operation {
 		this.date = date;
 	}
 
-	public long deposit(long amount, long balance) {
+	/**
+	 * @return the operationType
+	 */
+	public Operation.OperationType getOperationType() {
+		return operationType;
+	}
+
+	/**
+	 * @param operationType
+	 *            the operationType to set
+	 */
+	public void setOperationType(Operation.OperationType operationType) {
+		this.operationType = operationType;
+	}
+
+	/**
+	 * @return the balanceAfterOperation
+	 */
+	public long getBalanceAfterOperation() {
+		return balanceAfterOperation;
+	}
+
+	/**
+	 * @param balanceAfterOperation
+	 *            the balanceAfterOperation to set
+	 */
+	public void setBalanceAfterOperation(long balanceAfterOperation) {
+		this.balanceAfterOperation = balanceAfterOperation;
+	}
+
+	public long deposit(long amount, Account account) {
 
 		if (amount > 0) {
-			balance += amount;
+			balanceAfterOperation = account.getBalance() + amount;
 		} else if (amount < 0) {
 
 			throw new IllegalStateException("You can't deposit a negative value.You should try again");
 
 		}
 
-		return balance;
+		return balanceAfterOperation;
 	}
 
-	public long withdraw(long amount, long balance) {
+	public long withdraw(long amount, Account account) {
 
-		if (isPositifAmount(amount)) {
-			if (amount < balance) {
-				balance -= amount;
+		if (amount > 0) {
+			if (amount < account.getBalance()) {
+				balanceAfterOperation = account.getBalance() - amount;
 			} else
 				throw new IllegalStateException("You have not enough money to retrieve this amount");
-		} else if (isNegatifAmount(amount)) {
+		} else if (amount < 0) {
 			throw new IllegalStateException("You can't retrieve a negative value.You should try again");
 		}
 
-		return balance;
-	}
-
-	public Boolean isPositifAmount(long amount) {
-		return amount > 0;
-	}
-
-	public Boolean isNegatifAmount(long amount) {
-		return amount < 0;
+		return balanceAfterOperation;
 	}
 
 }

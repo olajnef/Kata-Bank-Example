@@ -1,42 +1,30 @@
 package kataBankClasses;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Logger;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
+
+import sun.invoke.empty.Empty;
 
 public class Account {
-	public Client client;
 
-	
 	public long balance;
 
-	
-
-	
-	
-	public List<Operation>operations = new ArrayList<>();
-
-	
-	
-	
+	public List<Operation> operations;
 
 	/**
-	 * @param nameClient
+	 * 
 	 * @param amount
 	 * @param balance
 	 * @param date
 	 */
-	public Account(Client client, long balance) {
-		//this.operations=operations;
-		
-		this.client = new Client();
-		
-		this.balance = balance;
-		
-	}
+	public Account(long balance, List<Operation> operations) {
+		this.operations = operations;
 
-	
+		this.balance = balance;
+
+	}
 
 	/**
 	 * @return the balance
@@ -53,24 +41,31 @@ public class Account {
 		this.balance = balance;
 	}
 
-
 	/**
-	 * @return the client
+	 * @return the operations
 	 */
-	public Client getClient() {
-		return client;
+	public List<Operation> getOperations() {
+		return operations;
 	}
 
 	/**
-	 * @param client
-	 *            the client to set
+	 * @param operations
+	 *            the operations to set
 	 */
-	public void setClient(Client client) {
-		this.client = client;
+	public void setOperations(List<Operation> operations) {
+		this.operations = operations;
 	}
 
+	public List<Operation> showOperationsHistory(Account account) {
 
+		if (null != operations)
+			operations.stream().forEach(x -> {
+				System.out.println("OperationsType : " + x.getOperationType() + " | " + "Date : " + x.getDate() + " | "
+						+ "Amount : " + x.getAmount() + " | " + "Balance : " + x.getBalanceAfterOperation());
+			});
 
+		return operations;
 
+	}
 
 }
